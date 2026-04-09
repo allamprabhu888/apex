@@ -1,16 +1,29 @@
-# React + Vite
+# Apex Academy 🎓
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Apex Academy** repository! This is a highly optimized, aesthetically premium Web Application built for an elite learning academy. 
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Blazing Fast SPA Routing**: Fully integrated with `react-router-dom` for instantaneous navigation between modules.
+- **Dynamic Dark/Light Mode**: Seamless CSS-variable backed color inversion maintaining visual hierarchy.
+- **Functional Autocomplete Search**: Global search matrix seamlessly routing queries against `COURSES` and `FACULTY`.
+- **Form Validation Validation Engine**: Rigorous logic intercepting and validating signups and email verification.
+- **Glassmorphism UI**: High immersion blurring layers overlaying core interactive models.
+- **Vercel Optimized Engine**: Engineered fundamentally to be deployed with zero 404 router fallbacks.
 
-## React Compiler
+## 🛠 Tech Stack
+- Frontend Engine: **React.js**
+- Bundler: **Vite**
+- Routing System: **React Router v6**
+- Analytics & Deployment Ready: **Vercel**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Local Development
 
-## Expanding the ESLint configuration
+1. Ensure Node.js is installed.
+2. Clone this repository and run `npm install`.
+3. Launch the live dev server with `npm run dev`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<br/>
+<br/>
+
+*Designed and Developed dynamically with Antigravity*
