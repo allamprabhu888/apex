@@ -6,9 +6,23 @@ function Contact() {
   const [form, setForm] = useState({ name:"", phone:"", course:"", message:"" });
   const [sent, setSent] = useState(false);
   
-  const handleSubmit = (e) => { 
+  const handleSubmit = async (e) => { 
     e.preventDefault(); 
-    setSent(true); 
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      if (res.ok) {
+        setSent(true); 
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Network error. Please try again later.');
+    }
   };
   
   const inp = { 

@@ -32,7 +32,7 @@ function OnlineLearning() {
   return (
     <section style={{ background:T.cream, padding:"88px 0" }}>
       <div style={{ maxWidth:1200, margin:"0 auto", padding:"0 24px" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
+        <div className="responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
           <div>
             <SectionLabel>Online Learning</SectionLabel>
             <SectionTitle>Learn <em style={{ fontStyle:"italic", color:T.orange }}>Anytime, Anywhere</em></SectionTitle>

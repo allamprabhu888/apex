@@ -48,7 +48,7 @@ export default function BookDemo() {
 
         <div style={{ background:"#fff", borderRadius:24, padding:"48px", boxShadow:"0 20px 60px rgba(0,0,0,.04)", border:`1px solid ${T.cream2}` }}>
           <form onSubmit={handleBook}>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:40 }}>
+            <div className="responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:40 }}>
               
               <div>
                 <h4 style={{ fontWeight:700, fontSize:16, marginBottom:20 }}>Your Details</h4>

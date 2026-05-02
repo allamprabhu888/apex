@@ -8,10 +8,26 @@ export default function Enroll() {
   const [data, setData] = useState({ name:"", phone:"", email:"", course:"" });
   const [complete, setComplete] = useState(false);
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
     if (step === 1 && data.name && data.phone && data.email) setStep(2);
-    else if (step === 2 && data.course) setComplete(true);
+    else if (step === 2 && data.course) {
+      try {
+        const res = await fetch('/api/enroll', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          setComplete(true);
+        } else {
+          alert('Failed to submit enrollment. Please try again.');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Network error. Please try again later.');
+      }
+    }
   };
 
   const inp = { width:"100%", padding:"14px 18px", borderRadius:12, border:`1.5px solid ${T.cream2}`,
@@ -20,7 +36,7 @@ export default function Enroll() {
 
   return (
     <section style={{ background:T.ink, minHeight:"80vh", display:"flex", padding:"80px 24px", alignItems:"center", position:"relative" }}>
-      <div style={{ maxWidth:1000, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
+      <div className="responsive-grid" style={{ maxWidth:1000, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
         {/* Left side info */}
         <div>
           <div style={{ display:"inline-flex", alignItems:"center", gap:9,

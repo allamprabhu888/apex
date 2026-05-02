@@ -45,7 +45,7 @@ export default function CourseDetail() {
             </div>
           </div>
           
-          <div style={{ display:{xs:'none', md:'block'}, fontSize:180, opacity:0.8 }}>
+          <div className="hide-on-mobile" style={{ fontSize:180, opacity:0.8 }}>
             {course.emoji}
           </div>
 
@@ -53,7 +53,7 @@ export default function CourseDetail() {
       </div>
 
       {/* Content */}
-      <div style={{ maxWidth:1000, margin:"0 auto", padding:"80px 24px", display:"grid", gridTemplateColumns:"2fr 1fr", gap:64 }}>
+      <div className="responsive-grid-2-1" style={{ maxWidth:1000, margin:"0 auto", padding:"80px 24px", display:"grid", gridTemplateColumns:"2fr 1fr", gap:64 }}>
         
         <div>
           <h3 className="serif" style={{ fontSize:"1.8rem", fontWeight:400, marginBottom:24 }}>Course Highlights</h3>
@@ -62,7 +62,7 @@ export default function CourseDetail() {
           </p>
 
           <h3 className="serif" style={{ fontSize:"1.4rem", fontWeight:400, marginBottom:20 }}>What's Included</h3>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:40 }}>
+          <div className="responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:40 }}>
             {course.features.map((feat, i) => (
               <div key={i} style={{ display:"flex", gap:16, alignItems:"center", padding:"16px", background:"var(--cream, #f7f3ed)", borderRadius:8, border:`1px solid var(--cream2, #ede8e0)` }}>
                 <span style={{ width:32, height:32, borderRadius:8, background:course.light, color:course.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:700 }}>✓</span> 

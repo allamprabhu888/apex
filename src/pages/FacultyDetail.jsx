@@ -52,7 +52,7 @@ export default function FacultyDetail() {
       </div>
 
       {/* Content */}
-      <div style={{ maxWidth:1000, margin:"0 auto", padding:"100px 24px 80px", display:"grid", gridTemplateColumns:"2fr 1fr", gap:64 }}>
+      <div className="responsive-grid-2-1" style={{ maxWidth:1000, margin:"0 auto", padding:"100px 24px 80px", display:"grid", gridTemplateColumns:"2fr 1fr", gap:64 }}>
         
         <div>
           <h3 className="serif" style={{ fontSize:"1.6rem", fontWeight:400, marginBottom:20 }}>About {faculty.name.split(" ")[0]}</h3>
