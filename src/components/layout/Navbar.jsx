@@ -51,11 +51,11 @@ export default function Navbar() {
 
   const links = [
     { label: "Home", path: "/" },
-    { label: "Courses", path: "/" },
+    { label: "Courses", path: "/courses" },
     { label: "Results", path: "/results" },
-    { label: "Faculty", path: "/" },
-    { label: "About Us", path: "/" },
-    { label: "Contact", path: "/" }
+    { label: "Faculty", path: "/faculty" },
+    { label: "About Us", path: "/about" },
+    { label: "Contact", path: "/contact" }
   ];
 
   return (
@@ -83,7 +83,7 @@ export default function Navbar() {
           {/* Center Links */}
           <ul className="nav-desktop" style={{ display:"flex", gap:2, listStyle:"none", marginRight:"auto" }}>
             {links.map((l, i) => {
-              const active = location.pathname === l.path && l.label !== "Courses" && l.label !== "Faculty" && l.label !== "About Us" && l.label !== "Contact"; 
+              const active = location.pathname === l.path; 
               return (
                 <li key={i}>
                   <Link to={l.path} style={{ padding:"6px 12px", borderRadius:7, fontSize:13, fontWeight:active ? 600 : 500,
@@ -113,6 +113,12 @@ export default function Navbar() {
 
             <span style={{ width: 1, height: 24, background: T.cream2 }}></span>
 
+            <Link to="/admin" style={{ fontSize:13, fontWeight:600, color:T.ink3, textDecoration:"none", transition:"color .2s" }}
+              onMouseEnter={e => e.target.style.color = T.orange}
+              onMouseLeave={e => e.target.style.color = T.ink3}>
+              Admin Panel
+            </Link>
+
             <Link to="/login" style={{ fontSize:13, fontWeight:500, color:T.ink2,
               padding:"8px 16px", border:`1px solid ${T.cream2}`, borderRadius:6, textDecoration:"none", transition:"all .2s" }}
               onMouseEnter={e => { e.target.style.borderColor = T.orange; e.target.style.color = T.orange; }}
@@ -137,7 +143,7 @@ export default function Navbar() {
         {mobileOpen && (
           <div style={{ background:T.white, borderTop:`1px solid ${T.cream2}`, padding:"16px 24px" }}>
             {links.map((l, i) => {
-              const active = location.pathname === l.path && l.label !== "Courses" && l.label !== "Faculty" && l.label !== "About Us" && l.label !== "Contact";
+              const active = location.pathname === l.path;
               return (
                 <Link key={i} to={l.path} style={{ display:"block", padding:"12px 16px", fontSize:15,
                   fontWeight:active ? 600 : 500, color: active ? T.orange : T.ink2, 
@@ -152,9 +158,14 @@ export default function Navbar() {
                <a href="tel:+919876543210" style={{ color:T.ink, textDecoration:"none", fontWeight:600 }}>📞 Call Now</a>
             </div>
 
-            <div style={{ paddingTop:20, display:"flex", gap:10 }}>
-              <Btn variant="outline" to="/login" style={{ flex:1, padding:"10px 12px", fontSize:14 }}>Student Login</Btn>
-              <Btn to="/enroll" style={{ flex:1, padding:"10px 12px", fontSize:14 }}>Enroll Now</Btn>
+            <div style={{ paddingTop:20, display:"flex", gap:10, flexDirection: "column" }}>
+              <div style={{ display:"flex", gap:10 }}>
+                <Btn variant="outline" to="/login" style={{ flex:1, padding:"10px 12px", fontSize:14 }}>Student Login</Btn>
+                <Btn to="/enroll" style={{ flex:1, padding:"10px 12px", fontSize:14 }}>Enroll Now</Btn>
+              </div>
+              <Link to="/admin" style={{ textAlign:"center", fontSize:14, fontWeight:600, color:T.ink3, textDecoration:"none", padding:"10px" }}>
+                Access Admin Panel
+              </Link>
             </div>
           </div>
         )}

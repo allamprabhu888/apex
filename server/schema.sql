@@ -21,3 +21,16 @@ CREATE TABLE IF NOT EXISTS enrollments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 select * from enrollments;
+select * from contacts;
+CREATE TABLE IF NOT EXISTS user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('student', 'admin', 'teacher') DEFAULT 'student',
+  is_verified BOOLEAN DEFAULT FALSE,
+  verification_token VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+

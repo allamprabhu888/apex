@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import T from '../styles/theme';
 import { Btn, SectionTitle } from '../components/ui';
 
@@ -7,6 +8,9 @@ export default function Login() {
   const [form, setForm] = useState({ name:"", email:"", password:"", confirm:"" });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle, loading, success
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isAdminLogin = new URLSearchParams(location.search).get('type') === 'admin';
 
   const validate = () => {
     let err = {};
@@ -35,13 +39,43 @@ export default function Login() {
 
     setStatus("loading");
     
-    // Simulate API Call
-    setTimeout(() => {
-      setStatus(isSign ? "success" : "idle");
-      if (!isSign) {
-         setErrors({ general: "Invalid login credentials. Please try again." });
+    const endpoint = isSign ? '/api/auth/register' : '/api/auth/login';
+    const payload = isSign 
+      ? { name: form.name, email: form.email, password: form.password, role: isAdminLogin ? 'admin' : 'student' }
+      : { email: form.email, password: form.password };
+
+    fetch(`http://localhost:5000${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        if (isSign) {
+          // It's a registration, proceed to login without verification
+          setStatus("success");
+          setErrors({ general: "" }); // clear errors
+        } else {
+          // It's a login
+          localStorage.setItem('apex_token', data.token);
+          localStorage.setItem('apex_user', JSON.stringify(data.user));
+          setStatus("success");
+          if (data.user.role === 'admin' || data.user.role === 'teacher') {
+            navigate('/admin');
+          } else {
+            navigate('/dashboard');
+          }
+        }
+      } else {
+        setStatus("idle");
+        setErrors({ general: data.error || "Authentication failed. Please try again." });
       }
-    }, 1200);
+    })
+    .catch(err => {
+      setStatus("idle");
+      setErrors({ general: "Server error. Please check if the backend is running." });
+    });
   };
 
   const toggleMode = () => {
@@ -64,7 +98,7 @@ export default function Login() {
           <div style={{ fontSize:64, marginBottom:20 }}>✅</div>
           <SectionTitle>Account Created</SectionTitle>
           <p style={{ color:T.ink2, marginTop:16, fontSize:15, lineHeight:1.6, marginBottom:32 }}>
-            Welcome to Apex, <b>{form.name}</b>. Your student portal has been successfully generated. Please check your email to verify your account.
+            Welcome to Apex, <b>{form.name}</b>. Your student portal has been successfully generated. You can now log in directly.
           </p>
           <Btn onClick={toggleMode} style={{ width: "100%", justifyContent: "center" }}>Proceed to Login</Btn>
         </div>
@@ -85,10 +119,12 @@ export default function Login() {
         <div style={{ textAlign:"center", marginBottom:32 }}>
           <div style={{ width:64, height:64, borderRadius:"50%", background:`var(--orangeLt, ${T.orangeLt})`,
             display:"flex", alignItems:"center", justifyContent:"center", fontSize:28,
-            margin:"0 auto 20px" }}>🧑‍🎓</div>
-          <SectionTitle>{isSign ? "Create Account" : "Student Login"}</SectionTitle>
+            margin:"0 auto 20px" }}>{isAdminLogin ? "👔" : "🧑‍🎓"}</div>
+          <SectionTitle>
+             {isSign ? (isAdminLogin ? "Create Staff Account" : "Create Account") : (isAdminLogin ? "Staff / Admin Login" : "Student Login")}
+          </SectionTitle>
           <p style={{ color:T.ink3, marginTop:8, fontSize:15 }}>
-            {isSign ? "Register to unlock premium courses and study tools." : "Access your dashboard, live classes & test series."}
+            {isSign ? (isAdminLogin ? "Register to access the staff portal." : "Register to unlock premium courses and study tools.") : (isAdminLogin ? "Access your command center and manage operations." : "Access your dashboard, live classes & test series.")}
           </p>
         </div>
 
@@ -131,7 +167,7 @@ export default function Login() {
           )}
 
           <Btn style={{ width:"100%", justifyContent:"center", fontSize:16, padding:"16px", opacity: status==="loading"?0.7:1 }}>
-            {status === "loading" ? "Processing..." : (isSign ? "Create Student Profile" : "Login to Dashboard")}
+            {status === "loading" ? "Processing..." : (isSign ? (isAdminLogin ? "Register Staff" : "Create Student Profile") : (isAdminLogin ? "Login to Admin Portal" : "Login to Dashboard"))}
           </Btn>
 
           {errors.general && (
